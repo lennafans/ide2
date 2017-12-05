@@ -6,6 +6,28 @@
   </head>
   <body>
 
+    <style>
+      body {
+        font-family: serif;
+        width: 45vw;
+        margin: 0 50vw 0 15vw;
+
+        background-color: #2F2727;
+        background: -webkit-gradient(radial, 20% 30%, 0, 0% 0%, 200, from(#EECC00), to(#F1F1F1));
+      }
+      h1, h2, h3, h4 {
+        font-family: helvetica, sans-serif;
+      }
+      h1 {
+        width: 20vw;
+        padding: 0 10vw;
+        text-align: center;
+      }
+      p {
+        text-indent: 3rem;
+      }
+    </style>
+
     <h1>How has the weather changed over the past 100 years?</h1>
     <p>
       The question about weather changes in the past 100 years becomes
@@ -43,6 +65,37 @@
     </p>
 
     <h2>Discussion</h2>
+    <h3>Dynamic visualisation (Jens)</h3>
+    <p>
+      Our plots focus on the development of one (average) temperature over
+      time. It would be interesting to allow the user to see the general
+      overview and then dig into the specifics, if it has any interest. The
+      could be approached from two angles:
+
+      <ol>
+        <li>Either the user could be met with a general view, providing a quick
+          overview of the situation. The view would invite to interaction,
+          allowing the user to 'zoom' into particular areas of interest. This
+          would give the user a quick intuition about the situation
+          due to the reduced complexity. The drawback is that it might not be
+          trivial to display this in a way that provides the necessary
+          information while also inviting for interaction.
+        </li>
+        <li>Another approach is to present the user with a view of all the
+          data at once. The user can then dive into the data by 'slicing' it
+          in a way that is important for him/her. The advantage of this is that
+          it does not require any cognitive capacity to remember where in the
+          data you are, because the display stays the same. The disadvantage
+          is that the data can be hard to portray in a way that does not
+          confuse the user unnecessarily. One quite successful example of this
+          approach has been developed by Peter Cook, showing the
+          <a href="http://charts.animateddata.co.uk/uktemperaturelines">
+          Temperature history in the UK</a>. He managed to plot the temperature
+          outlines in a way that is easy to understand. The exact correlation
+          between each year is hard to understand, but it allows for users to
+          easily dig further into a certain year.</li>
+      </ol>
+    </p>
 
     <h2>Conclusion</h2>
 
@@ -50,8 +103,5 @@
     <svg id="plot2" style="width:800px; height:400px;"></svg>
     <svg id="plot3" style="width:800px; height:400px;"></svg>
 
-    <p>
-    http://charts.animateddata.co.uk/uktemperaturelines/
-  </p>
   </body>
 </html>
