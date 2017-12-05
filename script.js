@@ -11,31 +11,53 @@ function init() {
       const width = parseFloat(svg.node().style.width);
       const height = parseFloat(svg.node().style.height);
 
-      const padding = 10;
+      const padding = 30;
 
-      const data = dataMap.map(row => [row['YEAR'], row['J-J-A']])
-                          .filter(r => r[1] < 50)
+      const to_double = (n) => Number(n) > 50 ? null : Number(n);
 
-      const xScale = d3.scaleBand()
+      const average = (row) => {
+        const xs = [to_double(row['JAN']), to_double(row['FEB']),
+          to_double(row['MAR']), to_double(row['APR']), to_double(row['MAY']),
+          to_double(row['JUN']), to_double(row['JUL']), to_double(row['AUG']),
+          to_double(row['SEP']), to_double(row['OCT']), to_double(row['NOV']),
+          to_double(row['DEC'])]
+        if (xs.indexOf(null) > -1) {
+          return null
+        } else {
+          return xs.reduce((x, y) => x + y, 0) / 12
+        }
+      }
+
+      const data = dataMap.map(row => [row['YEAR'], row['J-J-A'], average(row)])
+                          .filter(r => r[1] < 50 && r[2] !== null)
+
+      const xScale = d3.scaleLinear()
         .domain([d3.min(data, d => d[0]), d3.max(data, d => d[0])])
         .range([padding,width-padding]);
 
       const yScale = d3.scaleLinear()
-        .domain([d3.min(data, d => d[1]),
-                 d3.max(data, d => d[1])])
+        .domain([0, 15])
         .range([height-padding, padding]);
-
-        console.log(xScale(1900))
 
       d3.select("#plot1")
         .selectAll("circle")
         .data(data)
         .enter()
         .append("circle")
-        .attr("r", "4px")
+        .attr("color", "#222266")
+        .attr("r", "3px")
         .attr("cx", d => xScale(d[0]) + "px")
-        .attr("cy", d => yScale(d[1]) + "px")
-        //.attr("width", xScale.bandwidth() + "px")
-        //.attr("height", d => height - yScale(d[1]) + "px");
+        .attr("cy", d => yScale(d[2]) + "px")
+
+      var formatter = d3.format("04");
+
+      d3.select("#plot1")
+        .append('g')
+        .attr('transform', 'translate(0,' + (height - padding) + ')')
+        .call(d3.axisBottom(xScale).ticks(4).tickFormat(formatter));
+      d3.select("#plot1")
+        .append('g')
+        .attr('transform', 'translate('+padding+', 0)')
+        .call(d3.axisLeft(yScale));
   });
 }
