@@ -1,56 +1,57 @@
-  <!DOCTYPE html>
-  <html>
-    <head>
-      <script src="https://d3js.org/d3.v4.min.js"></script>
-      <script src="script.js"></script>
-    </head>
-    <body>
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
 
-      <h1>How has the weather changed over the past 100 years?</h1>
-      <p>
-        The question about weather changes in the past 100 years becomes
-        increasingly relevant following the large impact of global warming,
-        leading to fatal disruption of the human food chain, decrease of
-        inhabitable land mass and mass-extinction.
-      </p>
-      <h2>Motivation</h2>
-      <p>
-        Denmark is located in a very stable geological region. There are no
-        large tectonic plates causing earthquakes and the Gulf stream and
-        temperate climate keeps the temperature level low, but constant.
-      </p>
-      <p>
-        Temperature for a stable region like Denmark over the course of ~100
-        years provides a good baseline for temperature analysis over time.
-        In particular we will be able to detect consistent anormalities,
-        indicating that the weather changes are not just sporadic but consistent
-        and long-lasting.
-      </p>
-
-      <h2>Method</h2>
-      <p>
-        We have collected data through the
-        <a href="https://data.giss.nasa.gov/gistemp/station_data/" title="GISS">
-          Goddard Institute for Space Studies</a> who have collected data from
-          Tarm, Denmark from 1880 to 1969. The data sums the temperature for
-          each month for each period.
-      </p>
-      <h3>Data anormalities</h3>
-      <p>
-        The data had some anormalities and odd readings we filtered out. We also
-        removed missing data points completely without any attempt at
-        interpolation.
-      </p>
-
-      <h2>Discussion</h2>
-
-      <h2>Conclusion</h2>
-
-      <svg id="plot1" style="width:800px; height:400px;"></svg>
-      <svg id="plot2" style="width:800px; height:400px;"></svg>
-
-      <p>
-      http://charts.animateddata.co.uk/uktemperaturelines/
+    <h1>How has the weather changed over the past 100 years?</h1>
+    <p>
+      The question about weather changes in the past 100 years becomes
+      increasingly relevant following the large impact of global warming,
+      leading to fatal disruption of the human food chain, decrease of
+      inhabitable land mass and mass-extinction.
     </p>
-    </body>
-  </html>
+    <h2>Motivation</h2>
+    <p>
+      Denmark is located in a very stable geological region. There are no
+      large tectonic plates causing earthquakes and the Gulf stream and
+      temperate climate keeps the temperature level low, but constant.
+    </p>
+    <p>
+      Temperature for a stable region like Denmark over the course of ~100
+      years provides a good baseline for temperature analysis over time.
+      In particular we will be able to detect consistent anormalities,
+      indicating that the weather changes are not just sporadic but consistent
+      and long-lasting.
+    </p>
+
+    <h2>Method</h2>
+    <p>
+      We have collected data through the
+      <a href="https://data.giss.nasa.gov/gistemp/station_data/" title="GISS">
+        Goddard Institute for Space Studies</a> who have collected data from
+        Tarm, Denmark from 1880 to 1969. The data sums the temperature for
+        each month for each period.
+    </p>
+    <h3>Data anormalities</h3>
+    <p>
+      The data had some anormalities and odd readings we filtered out. We also
+      removed missing data points completely without any attempt at
+      interpolation.
+    </p>
+
+    <h2>Discussion</h2>
+
+    <h2>Conclusion</h2>
+
+    <svg id="plot1" style="width:800px; height:400px;"></svg>
+    <svg id="plot2" style="width:800px; height:400px;"></svg>
+    <svg id="plot3" style="width:800px; height:400px;"></svg>
+
+    <p>
+    http://charts.animateddata.co.uk/uktemperaturelines/
+  </p>
+  </body>
+</html>
