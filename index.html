@@ -12,8 +12,7 @@
         width: 45vw;
         margin: 0 50vw 0 15vw;
 
-        background-color: #2F2727;
-        background: -webkit-gradient(radial, 20% 30%, 0, 0% 0%, 200, from(#EECC00), to(#F1F1F1));
+        background-color: #F9F9F9;
       }
       h1, h2, h3, h4 {
         font-family: helvetica, sans-serif;
@@ -25,6 +24,10 @@
       }
       p {
         text-indent: 3rem;
+      }
+      p.caption {
+        text-indent: -5rem;
+        margin-left: 10rem;
       }
     </style>
 
@@ -64,6 +67,16 @@
       interpolation.
     </p>
 
+    <h2>Analysis</h2>
+
+    <svg id="plot2" style="width:800px; height:400px;"></svg>
+    <p class="caption">Figure 1: Average temperature from 1880 to 1969 in
+    degrees celsius.</p>
+
+    <svg id="plot3" style="width:800px; height:400px;"></svg>
+    <p class="caption">Figure 2: Average temperature for summer (red) and winter (blue) from
+    1880 to 1969 in degrees celsius.</p>
+
     <h2>Discussion</h2>
     <h3>Dynamic visualisation (Jens)</h3>
     <p>
@@ -98,10 +111,6 @@
     </p>
 
     <h2>Conclusion</h2>
-
-    <svg id="plot1" style="width:800px; height:400px;"></svg>
-    <svg id="plot2" style="width:800px; height:400px;"></svg>
-    <svg id="plot3" style="width:800px; height:400px;"></svg>
 
   </body>
 </html>

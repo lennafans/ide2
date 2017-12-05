@@ -7,9 +7,10 @@ function init() {
         function(error, dataMap) {
             if (error) throw error;
 
-            const svg = d3.select('#plot1');
+            const svg = d3.select('#plot2');
             const width = parseFloat(svg.node().style.width);
             const height = parseFloat(svg.node().style.height);
+            const formatter = d3.format("04");
 
             const padding = 30;
             const to_double = (n) => Number(n) > 50 ? null : Number(n);
@@ -36,8 +37,6 @@ function init() {
         .filter(r => r[1] < 50)
 
 
-
-
             const xScale = d3.scaleLinear()
                 .domain([d3.min(data, d => d[0]), d3.max(data, d => d[0])])
         .range([padding,width-padding]);
@@ -50,35 +49,15 @@ function init() {
                 .domain([-6, 25])
                 .range([height-padding, padding]);
 
-            d3.select("#plot1")
-                .selectAll("circle")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("color", "#222266")
-                .attr("r", "3px")
-                .attr("cx", d => xScale(d[0]) + "px")
-        .attr("cy", d => yScale(d[2]) + "px")
-
-            var formatter = d3.format("04");
-
-            d3.select("#plot1")
-                .append('g')
-                .attr('transform', 'translate(0,' + (height - padding) + ')')
-                .call(d3.axisBottom(xScale).ticks(4).tickFormat(formatter));
-            d3.select("#plot1")
-                .append('g')
-                .attr('transform', 'translate('+padding+', 0)')
-                .call(d3.axisLeft(yScale));
-
             const line = d3.line()
                 .x(a => xScale(a[0]))
-        .y(a => yScale(a[2]))
+                .y(a => yScale(a[2]))
 
             const nline = d3.line()
                 .x(a => xScale(a[0]))
-        .y(a => nyScale(a[1]))
+                .y(a => nyScale(a[1]))
 
+            // Plot 1: Average temperatures
             d3.select("#plot2")
                 .append("path")
                 .attr('stroke-width', 2)
@@ -95,10 +74,7 @@ function init() {
                 .attr('transform', 'translate('+padding+', 0)')
                 .call(d3.axisLeft(yScale));
 
-
-
-
-            // PLOT 3 - Summer vs winter temperature
+            // Plot 2 - Summer vs winter temperature
             d3.select("#plot3")
                 .append("path")
                 .attr('stroke-width', 2)
