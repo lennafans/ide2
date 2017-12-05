@@ -59,5 +59,25 @@ function init() {
         .append('g')
         .attr('transform', 'translate('+padding+', 0)')
         .call(d3.axisLeft(yScale));
+
+      const line = d3.line()
+        .x(a => xScale(a[0]))
+        .y(a => yScale(a[2]))
+      d3.select("#plot2")
+        .append("path")
+        .attr('stroke-width', 2)
+        .attr('fill', "transparent")
+        .attr('stroke', 'black')
+        .attr('d', line(data))
+
+        d3.select("#plot2")
+          .append('g')
+          .attr('transform', 'translate(0,' + (height - padding) + ')')
+          .call(d3.axisBottom(xScale).ticks(4).tickFormat(formatter));
+        d3.select("#plot2")
+          .append('g')
+          .attr('transform', 'translate('+padding+', 0)')
+          .call(d3.axisLeft(yScale));
+
   });
 }
