@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-  </head>
-  <body>
-    <script type="text/javascript">
-    d3.select(window).on('load', init);
-
-    function init() {
-    d3.csv(
-      'data.csv',
-      function(error, data) {
-        if (error) throw error;
-        console.log(data);
-      });
-    }
-    </script>
-  </body>
-</html>
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <script src="https://d3js.org/d3.v4.min.js"></script>
+      <script src="script.js"></script>
+    </head>
+    <body>
+      <svg id="plot1" style="width:300px; height:200px;"></svg>
+    </body>
+  </html>
