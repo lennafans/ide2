@@ -26,36 +26,20 @@ function init() {
         }
     }
 
-    const data = dataMap.map(row => [row['YEAR'], row['J-J-A'], average(row)])
-                        .filter(r => r[1] < 50 && r[2] !== null)
-
-    const sdata = dataMap.map(row => [row['YEAR'], row['J-J-A']])
-                         .filter(r => r[1] < 50)
-    const wdata = dataMap.map(row => [row['YEAR'], row['D-J-F']])
-                         .filter(r => r[1] < 50)
-
-
-    const xScale = d3.scaleLinear()
-        .domain([d3.min(data, d => d[0]), d3.max(data, d => d[0])])
-        .range([padding,width-padding]);
-
-    const yScale = d3.scaleLinear()
-        .domain([0, 15])
-        .range([height-padding, padding]);
-
-    const nyScale = d3.scaleLinear()
-        .domain([-6, 25])
-        .range([height-padding, padding]);
-
-    const line = d3.line()
-        .x(a => xScale(a[0]))
-        .y(a => yScale(a[2]))
-
-    const nline = d3.line()
-        .x(a => xScale(a[0]))
-        .y(a => nyScale(a[1]))
+    const data = dataMap.map(row => [row['YEAR'], average(row)])
+                        .filter(r => r[1] < 50 && r[1] !== null)
 
     // Plot 1: Average temperatures
+    const xScale = d3.scaleLinear()
+    .domain([d3.min(data, d => d[0]), d3.max(data, d => d[0])])
+    .range([padding,width-padding]);
+
+    const yScale = d3.scaleLinear()
+    .domain([0, 15])
+    .range([height-padding, padding]);
+
+    const line = d3.line().x(a => xScale(a[0])).y(a => yScale(a[1]))
+
     d3.select("#plot2")
         .append("path")
         .attr('stroke-width', 2)
@@ -72,28 +56,30 @@ function init() {
         .attr('transform', 'translate('+padding+', 0)')
         .call(d3.axisLeft(yScale));
 
-    // Plot 2 - Summer vs winter temperature
-    d3.select("#plot3")
-        .append("path")
-        .attr('stroke-width', 2)
-        .attr('fill', "transparent")
-        .attr('stroke', 'blue')
-        .attr('d', nline(wdata))
+    // Plot 2: Histogram of average temperatures
+    const bins = d3.histogram()
+                   .domain([d3.min(data, d => d[1]), d3.max(data, d => d[1])])
+                   .thresholds(yScale.ticks(200))(data.map(d => d[1]));
+    const xBinScale = d3.scaleLinear()
+        .domain([d3.min(bins.map(d => d.x0)), d3.max(bins.map(d => d.x1))])
+        .rangeRound([padding, width - padding]);
+    const yBinScale = d3.scaleLinear()
+        .domain([0, d3.max(bins, d => d.length)])
+        .range([height - padding, padding]);
+    const bars = d3.select("#plot3")
+        .selectAll("rect")
+        .data(bins)
+        .enter()
+        .append("rect")
+        .attr("transform", d => "translate(" + xBinScale(d.x0) + "," + yBinScale(d.length) + ")")
 
+    bars.attr("x", 3)
+        .attr("width", d => Math.max(15, xBinScale(d.x1) - xBinScale(d.x0) - 5))
+        .attr("height", d => height - yBinScale(d.length) - padding)
     d3.select("#plot3")
-        .append("path")
-        .attr('stroke-width', 2)
-        .attr('fill', "transparent")
-        .attr('stroke', 'red')
-        .attr('d', nline(sdata))
-
-    d3.select("#plot3")
-        .append('g')
-        .attr('transform', 'translate(0,' + (height - padding) + ')')
-        .call(d3.axisBottom(xScale).ticks(4).tickFormat(formatter));
-    d3.select("#plot3")
-        .append('g')
-        .attr('transform', 'translate('+padding+', 0)')
-        .call(d3.axisLeft(nyScale));
+    .append("g")
+    .attr("class", "axis axis--x")
+    .attr("transform", "translate(0," + (height - padding) + ")")
+    .call(d3.axisBottom(xBinScale));
   });
 }
